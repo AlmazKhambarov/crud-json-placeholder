@@ -19,9 +19,10 @@ const Posts = () => {
 	);
 	const dispatch = useDispatch();
 	const [activeComment, setActiveComment] = useState(0);
+	const [activeCommentModal, setActiveCommentModal] = useState(false);
 	const [filtredUser, setFiltredUser] = useState([]);
 	const [updatedData, setUpdatedData] = useState();
-	const [updateActive, setUpdateAvtive] = useState(false);
+	const [updateActive, setUpdateActive] = useState(false);
 	const [currentPage, setCurrentPage] = useState(1);
 	const [activeUpdatedData, setActiveUpdatedData] = useState(0);
 	useEffect(() => {
@@ -69,29 +70,38 @@ const Posts = () => {
 							<span>{post.username}</span>
 							<p>{post.body}</p>
 							<div className="actions">
-								<span
-									className="comment_btn"
+								<button
+									className={` ${
+										activeComment === post.id && activeCommentModal
+											? "activeBtn"
+											: "nonActiveBtn"
+									}`}
 									onClick={() =>
-										dispatch(getPostsComment(post.id)) &&
-										setActiveComment(post.id)
+										(dispatch(getPostsComment(post.id)) &&
+											setActiveComment(post.id)) ||
+										setActiveCommentModal(!activeCommentModal)
 									}
 								>
 									Comment
-								</span>
-								<span
-									className="update_btn"
+								</button>
+								<button
+									className={`update_btn `}
 									onClick={() =>
-										setUpdateAvtive(!updateActive) || setUpdatedData(post)
+										setUpdateActive(!updateActive) ||
+										setUpdatedData(post) ||
+										setActiveUpdatedData(post.id)
 									}
 								>
 									update <UpdateIcon />
-								</span>
-								<DeleteNotification deleteId={post.id} />
+								</button>
+								<button class={"delete_btn"}>
+									<DeleteNotification deleteId={post.id} />
+								</button>
 							</div>
-							<div>
+							<div class={"update"}>
 								<p
 									className={`${
-										activeComment == post.id
+										activeComment == post.id && activeCommentModal
 											? "activeComment"
 											: "isActiveComment"
 									}`}
@@ -101,8 +111,21 @@ const Posts = () => {
 									))}
 								</p>
 							</div>
-							<div className={``}>
-								{updateActive ? <Update posts={updatedData} /> : null}
+							<div
+								className={`${
+									activeUpdatedData === post.id && updateActive
+										? "activeModal"
+										: "nonActiveModal"
+								}`}
+							>
+								{/* {updateActive ? ( */}
+								<Update
+									posts={updatedData}
+									updateActive={updateActive}
+									setActiveUpdatedData={setActiveUpdatedData}
+									setUpdateActive={setUpdateActive}
+								/>
+								{/* ) : null} */}
 							</div>
 						</div>
 					</>

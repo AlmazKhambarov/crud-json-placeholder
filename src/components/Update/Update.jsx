@@ -2,12 +2,17 @@ import React, { useEffect, useState } from "react";
 import "./Update.scss";
 import { useDispatch } from "react-redux";
 import { updatePosts } from "../../reduxToolkit/PostsSlice/postsSlice";
-const Update = ({ posts }) => {
+const Update = ({
+	posts,
+	updateActive,
+	setActiveUpdatedData,
+	setUpdateActive,
+}) => {
 	const dispatch = useDispatch();
-	console.log(posts.userId);
+	console.log(posts?.userId);
 	const [data, setData] = useState({
-		userId: posts.userId,
-		id: posts.id,
+		userId: posts?.userId,
+		id: posts?.id,
 		username: "",
 		body: "",
 	});
@@ -42,7 +47,12 @@ const Update = ({ posts }) => {
 					<button className="update__btn__submit" type="submit">
 						Submit
 					</button>
-					<button onClick={() => {}} className={"update__btn__cancel"}>
+					<button
+						onClick={() =>
+							setUpdateActive(!updateActive) || setActiveUpdatedData(posts.id)
+						}
+						className={"update__btn__cancel"}
+					>
 						Cancel
 					</button>
 				</div>
