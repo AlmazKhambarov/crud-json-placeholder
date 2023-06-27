@@ -16,6 +16,9 @@ const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
+        addPost:(state, action)=>{
+            state.postsData.push(action.payload)
+        },  
         deletePostReducer: (state, action) => {
             state.postsData = state.postsData.filter(el => el.id != action.payload)
             state.deleteAction = 'deleted'
