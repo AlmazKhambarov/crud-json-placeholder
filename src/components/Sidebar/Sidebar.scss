@@ -1,0 +1,27 @@
+.sidebar {
+  width: 15vw;
+  height: 100vh;
+  padding: 25px;
+  background-color: #f5f7f9;
+  border-radius: 30px 0 0 0;
+  ul {
+    li {
+      //   padding: 20px;
+      margin-bottom: 20px;
+      a {
+        font-size: 22px;
+        padding: 8px 10px;
+        display: block;
+        color: #00000080;
+      }
+      a.active {
+        color: #53535e;
+        // color: red;
+        font-weight: 500;
+        background-color: #e2e4e8;
+        border-radius: 6px;
+        width: 100%;
+      }
+    }
+  }
+}

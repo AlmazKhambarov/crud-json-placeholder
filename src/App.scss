@@ -1,0 +1,26 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  text-decoration: none;
+  list-style: none;
+}
+
+body {
+  background-color: #e5eaf1;
+  padding: 30px 30px 0;
+}
+
+.app {
+  display: flex;
+  border-radius: 30px 30px 0 0;
+  box-shadow: 3px 1px 10px 13px rgba(251, 250, 250, 0.382);
+  background-color: #fff;
+  height: 100vh;
+  // padding: 30px;
+}
+
+.container {
+  margin: 0 auto;
+  width: 100vw;
+}
