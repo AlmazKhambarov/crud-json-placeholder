@@ -1,8 +1,23 @@
-.confirm_main{
+.confirmButtons{
+    display: flex;
+    .confirmBtn{
+        background-color: blueviolet;
+    }
+    .cancelBtn{
+        background-color: red;
+    }
     button{
         margin:0px 5px;
         padding: 10px 25px;
         border-radius: 5px;
         border-style: none;
+        color:white;
     }
+}
+.notification {
+	span {
+		display: flex;
+		align-items: center;
+		gap: 5px;
+	}
 }

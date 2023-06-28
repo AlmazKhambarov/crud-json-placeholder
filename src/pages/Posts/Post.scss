@@ -1,84 +1,104 @@
 .posts_main {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 100vh;
-  &::-webkit-scrollbar {
-    // width: ;
-    display: none;
-  }
-  .pagination {
-    display: flex;
-    width: 100%;
-    justify-content: end;
-    padding: 15px;
-    .pagination_button {
-      border-style: none;
-      padding: 20px;
-      font-size: 20px;
-      border-radius: 2px;
-      margin: 2px;
-    }
-    .activeBtn {
-      color: red;
-    }
-  }
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100vh;
+	&::-webkit-scrollbar {
+
+		display: none;
+	}
+	.pagination {
+		display: flex;
+		width: 100%;
+		justify-content: end;
+		padding: 15px;
+		.pagination_button {
+			border-style: none;
+			padding: 20px;
+			font-size: 20px;
+			border-radius: 2px;
+			margin: 2px;
+		}
+		.activeBtn {
+			color: red;
+		}
+	}
 }
 .cards {
-  display: grid;
-  grid-template-columns: 1fr 1fr 1fr;
-  padding: 10px;
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	padding: 10px;
 
-  .card {
-    margin: 10px;
-    border: 1px solid;
-    padding: 20px;
-    // height: auto;
-    .activeComment{
-      // visibility: visible;
-      display: block;
-      transform: translateY(0px) scale(1);
-      transition: 0.3s;
-      opacity: 1;
-    }
-    .isActiveComment{
-      // visibility: hidden;
-      display: none;
-      transform: translateY(-30px) scale(0);
-      transition: 0.3s;
-      opacity: 0;
-      // margin-top: -50px;
-    }
-    .actions {
-      margin: 15px 0px 0px 0px;
-      display: flex;
-      span {
-        display: flex;
-        align-items: center;
-        
-        border: 1px solid;
-        border-radius: 4px;
-        margin: 0 10px;
-        cursor: pointer;
-        padding: 5px;
-      }
-      span:nth-child(1) {
-        color: red;
-      }
-      span:nth-child(2) {
-        color: red;
-      }
-      span:nth-child(3) {
-        color: white;
-        font-weight: 500;
-        background-color: rgb(233, 126, 126);
-      }
-      span:nth-child(3):active{
-        color: white;
-        font-weight: 500;
-        background-color: rgb(204, 0, 0);
-      }
-      .delete_btn {
-      }
-    }
-  }
+	.card {
+		margin: 10px;
+		border: 1px solid;
+		padding: 20px;
+		// height: auto;
+		.activeComment {
+			// visibility: visible;
+			display: block;
+			transform: translateY(0px) scale(1);
+			transition: 0.3s;
+			opacity: 1;
+		}
+		.isActiveComment {
+			// visibility: hidden;
+			display: none;
+			transform: translateY(-30px) scale(0);
+			transition: 0.3s;
+			opacity: 0;
+			// margin-top: -50px;
+		}
+		.actions {
+			margin: 15px 0px 0px 0px;
+			display: flex;
+			gap: 10px;
+			button {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				padding: 3px 10px;
+				border: none;
+				color: #fff;
+				border-radius: 8px;
+				cursor: pointer;
+				font-size: 15px;
+			}
+			.comment_btn {
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+			.delete_btn {
+				background-color: rgb(232, 29, 29);
+			}
+			.update_btn {
+				background-color: rgb(65, 199, 65);
+			}
+			.activeBtn {
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+			.nonActiveBtn {
+				background-color: gray;
+				// opacity: 0.8;
+			}
+			.activeSaved{
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+		}
+		.activeModal {
+			display: block;
+		}
+		.nonActiveModal {
+			display: none;
+		}
+		.update {
+			p:first-child {
+				margin-top: 20px;
+			}
+		}
+	}
+}
+@media(max-width:470px){
+	.cards{
+		// display: grid;
+		grid-template-columns: 1fr;
+	}
 }

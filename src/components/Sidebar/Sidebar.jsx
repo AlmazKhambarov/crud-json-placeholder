@@ -6,7 +6,6 @@ const Sidebar = () => {
     { id: 1, name: "Posts", path: "/" },
     { id: 2, name: "Photos", path: "/photos" },
     { id: 3, name: "Todos", path: "/todos" },
-    { id: 4, name: "Favorites", path: "/favourites" },
   ];
   return (
     <div className="sidebar">

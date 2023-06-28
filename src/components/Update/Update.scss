@@ -15,12 +15,15 @@ textarea {
 			display: flex;
 			gap: 15px;
 			margin-top: 10px;
+
 			.update__btn__submit {
 				background-color: rgb(50, 218, 50);
 				padding: 10px 15px;
 				border: none;
 				border-radius: 10px;
 				color: #fff;
+				cursor: pointer;
+				font-weight: 600;
 			}
 			.update__btn__cancel {
 				background-color: rgb(219, 37, 37);
@@ -28,6 +31,8 @@ textarea {
 				border: none;
 				border-radius: 10px;
 				color: #fff;
+				cursor: pointer;
+				font-weight: 600;
 			}
 		}
 		textarea {

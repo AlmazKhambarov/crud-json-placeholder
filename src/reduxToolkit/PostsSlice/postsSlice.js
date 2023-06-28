@@ -1,6 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Get_all_users, deletePosts, getPostsComment, get_all_posts, get_all_postss, paginationQuery } from "../extraReducer";
-import { use } from "i18next";
+import { Get_all_users, Get_saved_data, deletePosts, getPostsComment, get_all_posts, get_all_postss, paginationQuery, savedDatas } from "../extraReducer";
 
 const initialState = {
     loading: null,
@@ -9,17 +8,19 @@ const initialState = {
     postsData: [],
     users: [],
     postCommentData: [],
+    savedPosts: [],
+    isSavedAction:'',
     padinationQuery: null,
-    searchedvalue:""
+    searchedvalue: ""
 }
 
 const postsSlice = createSlice({
     name: 'posts',
     initialState,
     reducers: {
-        addPost:(state, action)=>{
+        addPost: (state, action) => {
             state.postsData.push(action.payload)
-        },  
+        },
         deletePostReducer: (state, action) => {
             state.postsData = state.postsData.filter(el => el.id != action.payload)
             state.deleteAction = 'deleted'
@@ -28,19 +29,18 @@ const postsSlice = createSlice({
             state.padinationQuery = 'succsess'
         },
         updatePosts: (state, action) => {
-        const {id, body} = (action.payload)
+            const { id, body, name } = (action.payload)
 
-            const existingData = state.postsData.find(el=>el.id ==id)
-            if(existingData){
+            const existingData = state.postsData.find(el => el.id == id)
+            if (existingData) {
                 existingData.body = body
             }
             const existinguser = state.users.find(el => el.id == action.payload.userId)
             if (existinguser) {
-                console.log(existinguser.username)
-                existinguser.username = action.payload.username
+                existinguser.username = action.payload.name
             }
         },
-        searchvalue:(state, action)=>{
+        searchvalue: (state, action) => {
             state.searchedvalue = action.payload;
         }
     },
@@ -75,7 +75,28 @@ const postsSlice = createSlice({
             }).addCase(Get_all_users.rejected, (state, action) => {
                 state.error = action.error.message
             })
+        builder
+            .addCase(Get_saved_data.pending, (state, action) => {
+                state.loading = true;
+            })
+            .addCase(Get_saved_data.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.savedPosts = payload
+            }).addCase(Get_saved_data.rejected, (state, action) => {
+                state.error = action.error.message
+            })
+        builder
+            .addCase(savedDatas.pending, (state, action) => {
+                state.loading = true;
+                state.isSavedAction = 'pending'
+            })
+            .addCase(savedDatas.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.isSavedAction = 'fulfiled'
+            }).addCase(savedDatas.rejected, (state, action) => {
+                state.error = action.error.message
+            })
     }
 })
-export const { paginationReducer, deletePostReducer, paginations, updatePosts, searchvalue} = postsSlice.actions
+export const { paginationReducer, deletePostReducer, paginations, updatePosts, searchvalue, savePost } = postsSlice.actions
 export default postsSlice.reducer
