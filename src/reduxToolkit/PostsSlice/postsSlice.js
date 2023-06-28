@@ -9,7 +9,8 @@ const initialState = {
     postsData: [],
     users: [],
     postCommentData: [],
-    padinationQuery: null
+    padinationQuery: null,
+    searchedvalue:""
 }
 
 const postsSlice = createSlice({
@@ -38,6 +39,9 @@ const postsSlice = createSlice({
                 console.log(existinguser.username)
                 existinguser.username = action.payload.username
             }
+        },
+        searchvalue:(state, action)=>{
+            state.searchedvalue = action.payload;
         }
     },
     extraReducers: (builder) => {
@@ -73,5 +77,5 @@ const postsSlice = createSlice({
             })
     }
 })
-export const { paginationReducer, deletePostReducer, paginations, updatePosts } = postsSlice.actions
+export const { paginationReducer, deletePostReducer, paginations, updatePosts, searchvalue} = postsSlice.actions
 export default postsSlice.reducer
