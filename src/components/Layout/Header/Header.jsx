@@ -11,7 +11,6 @@ const Header = () => {
   useEffect(() => {
     dispacth(Get_all_users());
   }, []);
-  console.log(users)
   return (
     <header className="header">
       <button className="header__left">add post</button>

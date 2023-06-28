@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { Get_all_users, Get_saved_data, deletePosts, getPostsComment, get_all_posts, get_all_postss, paginationQuery, savedDatas } from "../extraReducer";
+import { Get_all_users, Get_saved_data, deletePosts, deleteSavedPost, getPostsComment, get_all_posts, get_all_postss, paginationQuery, savedDatas } from "../extraReducer";
 
 const initialState = {
     loading: null,
@@ -9,7 +9,7 @@ const initialState = {
     users: [],
     postCommentData: [],
     savedPosts: [],
-    isSavedAction:'',
+    isSavedAction: '',
     padinationQuery: null,
     searchedvalue: ""
 }
@@ -94,6 +94,17 @@ const postsSlice = createSlice({
                 state.loading = false;
                 state.isSavedAction = 'fulfiled'
             }).addCase(savedDatas.rejected, (state, action) => {
+                state.error = action.error.message
+            })
+        builder
+            .addCase(deleteSavedPost.pending, (state, action) => {
+                state.loading = true;
+                state.isSavedAction = 'pending'
+            })
+            .addCase(deleteSavedPost.fulfilled, (state, { payload }) => {
+                state.loading = false;
+                state.isSavedAction = 'fulfiled'
+            }).addCase(deleteSavedPost.rejected, (state, action) => {
                 state.error = action.error.message
             })
     }

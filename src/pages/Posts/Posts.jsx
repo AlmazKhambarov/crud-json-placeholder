@@ -16,8 +16,15 @@ import Update from "../../components/Update/Update";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SavedNotification from "../../components/notifications/SavedNotification";
 const Posts = () => {
-  const { postsData, users, postCommentData, searchedvalue, savedPosts ,isSavedAction, loading} =
-    useSelector((state) => state.posts);
+  const {
+    postsData,
+    users,
+    postCommentData,
+    searchedvalue,
+    savedPosts,
+    isSavedAction,
+    loading,
+  } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
   const [activeComment, setActiveComment] = useState(0);
   const [activeCommentModal, setActiveCommentModal] = useState(false);
@@ -45,11 +52,11 @@ const Posts = () => {
         body: el.body,
         userId: el.userId,
         isSaved: saveds?.uid,
+        isSavedId: saveds?.id,
       });
     });
     setFiltredUser(arr);
   }, [loading, users, savedPosts, isSavedAction]);
-  console.log(postsData);
   const search = filtredUser.filter(
     (data) =>
       data.id?.toString().toLowerCase().includes(searchedvalue.toLowerCase()) ||
@@ -81,15 +88,23 @@ const Posts = () => {
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
-
+  console.log(postCommentData);
   return (
     <div className="posts_main">
       <div className="cards">
         {paginatedData?.map((post) => (
           <>
             <div className="card" key={post.id}>
-              <span>{post.id}</span>
-              <span>{post?.name}</span>
+              <div className="card__texts">
+                <div className="card_text">
+                  <span>{post.id}</span>
+                  <h4>{post.name}</h4>
+                </div>
+                <div className="card_select">
+                  <h3>Select</h3>
+                  <input type="checkbox" name="" id="" />
+                </div>
+              </div>
               <p>{post.body}</p>
               <div className="actions">
                 <button
@@ -137,7 +152,10 @@ const Posts = () => {
                   }`}
                 >
                   {postCommentData?.map((comment) => (
-                    <p>{comment.body}</p>
+                    <div className="comments_card">
+                      <h4>{comment.email}</h4>
+                      <p>{comment.body}</p>
+                    </div>
                   ))}
                 </p>
               </div>

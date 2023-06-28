@@ -34,6 +34,9 @@ export const Get_saved_data = createAsyncThunk('get/savedData', async(paylaod)=>
         url:POST_SAVED_DATA,
     }).then(res=>res.data)
 })
+export const deleteSavedPost = createAsyncThunk('delete/saved/post', async(paylaod)=>{
+    return await axios.delete(`${POST_SAVED_DATA}/${paylaod}`).then(res=>res.data)
+})
 
 // const getDataFromLocalStorage = () => {
 //     const storedData = localStorage.getItem('postsData');
