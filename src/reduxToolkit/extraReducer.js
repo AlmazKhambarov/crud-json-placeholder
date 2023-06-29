@@ -1,6 +1,6 @@
 import { createAsyncThunk, isAsyncThunkAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_POSTS, GET_ALL_USERS, GET_ALL_COMMENTS, POST_SAVED_DATA, GET_ALL_TODOS } from "../services/api";
+import { GET_ALL_POSTS, GET_ALL_USERS, GET_ALL_COMMENTS, POST_SAVED_DATA, GET_ALL_TODOS, GET_ALL_PHOTOS } from "../services/api";
 
 export const get_all_postss = createAsyncThunk('get/allposts', async () => {
     return axios({
@@ -45,6 +45,14 @@ export const Get_all_todos = createAsyncThunk('get/todos', async () => {
     }).then(res => res.data)
 })
 
+
+
+export const Get_all_photos = createAsyncThunk('get/all/photos', (state, action)=>{
+    return axios({
+        method:'GET',
+        url:GET_ALL_PHOTOS,
+    }).then(res=>res.data)
+})
 // const getDataFromLocalStorage = () => {
 //     const storedData = localStorage.getItem('postsData');
 //     return storedData ? JSON.parse(storedData) : null;

@@ -40,10 +40,12 @@ import todosSlice from './todosSlice/todosSlice';
 
 
 import { configureStore } from "@reduxjs/toolkit";
+import photosSlice from './photosSlice/photosSlice';
 const store = configureStore({
   reducer:{
     posts:postsSlice,
     todos:todosSlice,
+    photos:photosSlice,
   }
 })
 export default store;

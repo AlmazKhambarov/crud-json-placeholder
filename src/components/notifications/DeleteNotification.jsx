@@ -2,7 +2,7 @@ import React from "react";
 import { ToastContainer, toast } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import DeleteIcon from "@mui/icons-material/Delete";
-import { deletePostReducer } from "../../reduxToolkit/PostsSlice/postsSlice";
+import { deletePostReducer } from "../../reduxToolkit/photosSlice/photosSlice";
 import { useDispatch } from "react-redux";
 import "./DeleteNotification.scss";
 
