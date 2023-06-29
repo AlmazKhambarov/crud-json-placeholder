@@ -15,6 +15,7 @@ import DeleteNotification from "../../components/notifications/DeleteNotificatio
 import Update from "../../components/Update/Update";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SavedNotification from "../../components/notifications/SavedNotification";
+import { selectedPosts } from "../../reduxToolkit/PostsSlice/postsSlice";
 const Posts = () => {
 	const {
 		postsData,
@@ -24,8 +25,10 @@ const Posts = () => {
 		savedPosts,
 		isSavedAction,
 		loading,
+		selectedPostsData,
 	} = useSelector((state) => state.posts);
 	const dispatch = useDispatch();
+	const [selectedItems, setSelectedItems] = useState([]);
 	const [activeComment, setActiveComment] = useState(0);
 	const [activeCommentModal, setActiveCommentModal] = useState(false);
 	const [filtredUser, setFiltredUser] = useState([]);
@@ -46,17 +49,19 @@ const Posts = () => {
 		postsData?.forEach((el) => {
 			const usersname = users?.find((i) => i.id == el.userId);
 			const saveds = savedPosts?.find((item) => item.uid == el.id);
+			const selected = selectedPostsData?.find((l) => l == el.id);
 			arr.push({
 				id: el.id,
 				name: usersname?.name,
 				body: el.body,
 				userId: el.userId,
 				isSaved: saveds?.uid,
+				isSavedId: saveds?.id,
+				isChecked: selected,
 			});
 		});
 		setFiltredUser(arr);
-	}, [loading, users, savedPosts, isSavedAction]);
-	console.log(postsData);
+	}, [postsData, users, savedPosts, isSavedAction, selectedItems]);
 	const search = filtredUser.filter(
 		(data) =>
 			data.id?.toString().toLowerCase().includes(searchedvalue.toLowerCase()) ||
@@ -88,61 +93,90 @@ const Posts = () => {
 	useEffect(() => {
 		localStorage.setItem("currentPage", currentPage.toString());
 	}, [currentPage]);
-
+	console.log(selectedPostsData);
 	return (
 		<div className="posts_main">
+			<div className="selected_main">
+				{selectedPostsData.length > 0 ? (
+					<div>
+						<button class={"delete_btn"}>
+							<DeleteNotification deleteSelecteds={selectedPostsData} />
+						</button>
+						<button>
+							<SavedNotification savedSelects={selectedPostsData} />
+						</button>
+					</div>
+				) : null}
+			</div>
 			<div className="cards">
 				{paginatedData?.map((post) => (
 					<>
-						<div className="card" key={post.id}>
-							<div className="card__text">
-								<div className="card__text__inside">
-									<h4>{post.id}</h4>
-									<h4>{post?.name}</h4>
+						<div
+							className={`${
+								post.id === post.isChecked ? "avtiveSelect" : null
+							} card`}
+							key={post.id}
+						>
+							<div className="card__texts">
+								<div className="card_text">
+									<span>{post.id}</span>
+									<h4>{post.name}</h4>
 								</div>
-								<p>{post.body}</p>
+								<div className="card_select">
+									<h3>Select</h3>
+									<input
+										value={post.id}
+										type="checkbox"
+										onChange={(event) =>
+											dispatch(
+												selectedPosts({
+													id: post.id,
+													name: post.name,
+													checked: event.target.checked,
+													body: post.body,
+												})
+											)
+										}
+									/>
+								</div>
 							</div>
+							<p>{post.body}</p>
 							<div className="actions">
-								<div className="action__top">
-									<button
-										className={` ${
-											activeComment === post.id && activeCommentModal
-												? "activeBtn"
-												: "nonActiveBtn"
-										}`}
-										onClick={() =>
-											(dispatch(getPostsComment(post.id)) &&
-												setActiveComment(post.id)) ||
-											setActiveCommentModal(!activeCommentModal)
-										}
-									>
-										Comment
-										<CommentIcon />
-									</button>
-									<button
-										className={`update_btn `}
-										onClick={() =>
-											setUpdateActive(!updateActive) ||
-											setUpdatedData(post) ||
-											setActiveUpdatedData(post.id)
-										}
-									>
-										update <UpdateIcon />
-									</button>
-								</div>
-								<div className="action__bottom">
-									<button class={"delete_btn"}>
-										<DeleteNotification deleteId={post.id} />
-									</button>
-									<button
-										className={`${
-											post.isSaved == post.id ? "activeSaved" : null
-										}`}
-									>
-										favorite
-										<SavedNotification savedData={post} />
-									</button>
-								</div>
+								<button
+									className={` ${
+										activeComment === post.id && activeCommentModal
+											? "activeBtn"
+											: "nonActiveBtn"
+									}`}
+									onClick={() =>
+										(dispatch(getPostsComment(post.id)) &&
+											setActiveComment(post.id)) ||
+										setActiveCommentModal(!activeCommentModal)
+									}
+								>
+									Comment
+									<CommentIcon />
+								</button>
+								<button
+									className={`update_btn `}
+									onClick={() =>
+										setUpdateActive(!updateActive) ||
+										setUpdatedData(post) ||
+										setActiveUpdatedData(post.id)
+									}
+								>
+									update <UpdateIcon />
+								</button>
+								<button class={"delete_btn"}>
+									<DeleteNotification deleteId={post.id} />
+								</button>
+								<button
+									className={`${
+										post.isSaved == post.id ? "activeSaved" : null
+									}`}
+								>
+									<SavedNotification savedData={post} />
+								</button>
 							</div>
 							<div class={"update"}>
 								<p
@@ -153,7 +187,10 @@ const Posts = () => {
 									}`}
 								>
 									{postCommentData?.map((comment) => (
-										<p>{comment.body}</p>
+										<div className="comments_card">
+											<h4>{comment.email}</h4>
+											<p>{comment.body}</p>
+										</div>
 									))}
 								</p>
 							</div>

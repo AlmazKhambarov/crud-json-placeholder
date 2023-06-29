@@ -4,19 +4,43 @@ import "react-toastify/dist/ReactToastify.css";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import { useDispatch, useSelector } from "react-redux";
 import { savePost } from "../../reduxToolkit/PostsSlice/postsSlice";
-import { savedDatas } from "../../reduxToolkit/extraReducer";
+import { deleteSavedPost, savedDatas } from "../../reduxToolkit/extraReducer";
 
-const SavedNotification = ({ savedData }) => {
+const SavedNotification = ({ savedData, savedSelects }) => {
   const dispatch = useDispatch();
-  const [isInSaved, setIsInSaved] = useState(false);
-  const { savedPosts,isSavedAction} = useSelector((state) => state.posts);
+  const { savedPosts, isSavedAction } = useSelector((state) => state.posts);
   const handleConfirm = () => {
-    // console.log(savedData);
-    var data = { ...savedData, uid:savedData.id};
-    dispatch(savedDatas(data));
-    toast.dismiss();
-    toast.success("SuccsessFully saved");
-    setTimeout(()=>{window.location.reload()}, 1000)
+    if (savedData) {
+      if (savedData.isSaved !== undefined) {
+        dispatch(deleteSavedPost(savedData?.isSavedId));
+        toast.dismiss();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        var data = { ...savedData, uid: savedData.id };
+        console.log(data);
+        dispatch(savedDatas(data));
+        toast.dismiss();
+        toast.success("SuccsessFully saved");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
+    } else {
+      var res = savedSelects.forEach((data) => {
+        const obj = {
+          id: data.id,
+          body: data.body,
+          uid: data.id,
+        };
+        dispatch(savedDatas(obj));
+        toast.dismiss();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
+    }
   };
   const handleCancel = () => {
     toast.dismiss();

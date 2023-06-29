@@ -5,98 +5,29 @@
 	&::-webkit-scrollbar {
 		display: none;
 	}
-
-	.cards {
-		display: grid;
-		grid-template-columns: 1fr 1fr 1fr;
-		gap: 10px;
-		padding: 20px;
-
-		.card {
-			border: 1px solid;
-			padding: 20px;
-			width: 100%;
-			.card__text {
-				.card__text__inside {
-					display: flex;
-					gap: 10px;
-					margin-bottom: 10px;
-				}
+	.selected_main {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		div {
+			padding: 0 10px;
+			display: flex;
+			button {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				padding: 3px 10px;
+				border: none;
+				color: #fff;
+				border-radius: 8px;
+				cursor: pointer;
+				font-size: 15px;
 			}
-			.activeComment {
-				display: block;
-				transform: translateY(0px) scale(1);
-				transition: 0.3s;
-				opacity: 1;
-			}
-			.isActiveComment {
-				display: none;
-				transform: translateY(-30px) scale(0);
-				transition: 0.3s;
-				opacity: 0;
-			}
-			.actions {
-				margin-top: 15px;
-				.action__top {
-					display: flex;
-					gap: 10px;
-					button {
-						width: 100%;
-					}
-				}
-				.action__bottom {
-					display: flex;
-					gap: 10px;
-					margin-top: 10px;
-					button {
-						width: 100%;
-					}
-				}
-				button {
-					display: flex;
-					align-items: center;
-					justify-content: space-between;
-					gap: 5px;
-					padding: 3px 10px;
-					border: none;
-					color: #fff;
-					border-radius: 8px;
-					cursor: pointer;
-				}
-				.comment_btn {
-					background-color: rgba(37, 37, 185, 0.887);
-				}
-				.delete_btn {
-					background-color: rgb(232, 29, 29);
-				}
-				.update_btn {
-					background-color: rgb(65, 199, 65);
-				}
-				.activeBtn {
-					background-color: rgba(37, 37, 185, 0.887);
-				}
-				.nonActiveBtn {
-					background-color: gray;
-					// opacity: 0.8;
-				}
-				.activeSaved {
-					background-color: rgba(37, 37, 185, 0.887);
-				}
-			}
-			.activeModal {
-				display: block;
-			}
-			.nonActiveModal {
-				display: none;
-			}
-			.update {
-				p:first-child {
-					margin-top: 20px;
-				}
+			.delete_btn {
+				background-color: rgb(232, 29, 29);
 			}
 		}
 	}
-
 	.pagination {
 		display: flex;
 		width: 100%;
@@ -115,14 +46,109 @@
 	}
 }
 
-@media (max-width: 1200px) {
-	.cards {
-		grid-template-columns: repeat(2, 1fr) !important;
+.cards {
+	display: grid;
+	grid-template-columns: 1fr 1fr 1fr;
+	padding: 10px;
+
+	.avtiveSelect {
+		background-color: red;
+		color: white;
+	}
+	.card__texts {
+		display: flex;
+		justify-content: space-between;
+		.card_text {
+			display: block;
+		}
+		.card_select {
+			display: flex;
+			align-items: center;
+			input:checked + h3 {
+				text-decoration: line-through;
+				border: 2px solid red;
+			}
+
+			input {
+				margin: 0 10px;
+			}
+		}
+	}
+	.card {
+		margin: 10px;
+		border: 1px solid;
+		padding: 20px;
+		// height: auto;
+		.activeComment {
+			// visibility: visible;
+			display: block;
+			transform: translateY(0px) scale(1);
+			transition: 0.3s;
+			opacity: 1;
+		}
+		.isActiveComment {
+			// visibility: hidden;
+			display: none;
+			transform: translateY(-30px) scale(0);
+			transition: 0.3s;
+			opacity: 0;
+			// margin-top: -50px;
+		}
+		.actions {
+			margin: 15px 0px 0px 0px;
+			display: flex;
+			gap: 10px;
+			button {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				padding: 3px 10px;
+				border: none;
+				color: #fff;
+				border-radius: 8px;
+				cursor: pointer;
+				font-size: 15px;
+			}
+			.comment_btn {
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+			.delete_btn {
+				background-color: rgb(232, 29, 29);
+			}
+			.update_btn {
+				background-color: rgb(65, 199, 65);
+			}
+			.activeBtn {
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+			.nonActiveBtn {
+				background-color: gray;
+				// opacity: 0.8;
+			}
+			.activeSaved {
+				background-color: rgba(37, 37, 185, 0.887);
+			}
+		}
+		.activeModal {
+			display: block;
+		}
+		.nonActiveModal {
+			display: none;
+		}
+		.update {
+			p:first-child {
+				margin-top: 20px;
+			}
+		}
+	}
+
+	.comments_card {
+		margin: 10px 0;
 	}
 }
-
-@media (max-width: 750px) {
+@media (max-width: 470px) {
 	.cards {
-		grid-template-columns: repeat(1, 1fr) !important;
+		// display: grid;
+		grid-template-columns: 1fr;
 	}
 }

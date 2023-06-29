@@ -1,0 +1,49 @@
+.todos_main {
+  border: 1px solid #f1f1f1;
+  border-radius: 4px;
+  z-index: -2;
+  .cards{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    }
+  .todos__card {
+    // overflow-y: scroll;
+    // overflow-x: hidden;
+    // height: 100vh;
+    margin: 10px 0px;
+    &::-webkit-scrollbar {
+      display: none;
+    }
+    input{
+      border:1px solid;
+    }
+    li {
+      display: inline-flex;
+      align-items: center;
+      justify-content: space-around;
+    }
+    span {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 1px solid;
+      // padding: 20px;
+      font-size: 20px;
+      width: 3vw;
+    }
+    p {
+      display: flex;
+      align-items: center;
+      border: 1px solid;
+      width: 31vw;
+      text-align: start;
+      font-size: 20px;
+    }
+    button{
+      padding: 5px 20px;
+      border-style: none;
+      background-color: aqua;
+    }
+  }
+}
