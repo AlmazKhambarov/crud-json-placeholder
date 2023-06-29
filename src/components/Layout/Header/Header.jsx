@@ -46,7 +46,6 @@ const Header = () => {
 					type="search"
 					onChange={(e) => dispacth(searchvalue(e.target.value))}
 				/>
-				FIlter by
 				<select defaultChecked className={"header__right__select"}>
 					{pathname === "/todos" ? (
 						<>
@@ -58,27 +57,27 @@ const Header = () => {
 						users?.map((el) => <option>{el.name}</option>)
 					)}
 				</select>
-			</div>
-			<div>
-				<Button onClick={handleOpen}></Button>
-				<Modal open={open} onClose={handleClose}>
-					<Box sx={style}>
-						<form onSubmit={handleSubmit}>
-							<div className="submit_post">
-								<input type="text" placeholder="Title" />
-								<select>
-									{users.map((el) => (
-										<option value="">{el.name}</option>
-									))}
-								</select>
-								<div>
-									<button type="submit">cancel</button>
-									<button type="submit">Submit</button>
+				<div>
+					<Button onClick={handleOpen}></Button>
+					<Modal open={open} onClose={handleClose}>
+						<Box sx={style}>
+							<form onSubmit={handleSubmit}>
+								<div className="submit_post">
+									<input type="text" placeholder="Title" />
+									<select>
+										{users.map((el) => (
+											<option value="">{el.name}</option>
+										))}
+									</select>
+									<div>
+										<button type="submit">cancel</button>
+										<button type="submit">Submit</button>
+									</div>
 								</div>
-							</div>
-						</form>
-					</Box>
-				</Modal>
+							</form>
+						</Box>
+					</Modal>
+				</div>
 			</div>
 		</header>
 	);

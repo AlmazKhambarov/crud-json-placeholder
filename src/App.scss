@@ -20,10 +20,15 @@ body {
 	height: 100vh;
 	width: 95vw;
 	// padding: 30px;
-	.app__inside {
+	.app__left {
+		width: 15%;
+		min-width: 150px !important;
+	}
+	.app__right {
+		width: 85%;
 		overflow-y: scroll;
 		overflow-x: hidden;
-		width: 100%;
+		height: 88vh;
 	}
 }
 
