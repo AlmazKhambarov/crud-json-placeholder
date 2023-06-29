@@ -1,6 +1,7 @@
 // import { configureStore, combineReducers} from "@reduxjs/toolkit";
 import { SosTwoTone } from '@mui/icons-material';
 import postsSlice  from './PostsSlice/postsSlice'
+import todosSlice from './todosSlice/todosSlice';
 // import storage from 'redux-persist/lib/storage';
 // import { 
 //   persistStore,
@@ -39,10 +40,10 @@ import postsSlice  from './PostsSlice/postsSlice'
 
 
 import { configureStore } from "@reduxjs/toolkit";
-
 const store = configureStore({
   reducer:{
-    posts:postsSlice
+    posts:postsSlice,
+    todos:todosSlice,
   }
 })
 export default store;

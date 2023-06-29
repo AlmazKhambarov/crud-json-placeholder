@@ -15,6 +15,7 @@ import DeleteNotification from "../../components/notifications/DeleteNotificatio
 import Update from "../../components/Update/Update";
 import BookmarkBorderIcon from "@mui/icons-material/BookmarkBorder";
 import SavedNotification from "../../components/notifications/SavedNotification";
+import { selectedPosts } from "../../reduxToolkit/PostsSlice/postsSlice";
 const Posts = () => {
   const {
     postsData,
@@ -24,8 +25,10 @@ const Posts = () => {
     savedPosts,
     isSavedAction,
     loading,
+    selectedPostsData,
   } = useSelector((state) => state.posts);
   const dispatch = useDispatch();
+  const [selectedItems, setSelectedItems] = useState([]);
   const [activeComment, setActiveComment] = useState(0);
   const [activeCommentModal, setActiveCommentModal] = useState(false);
   const [filtredUser, setFiltredUser] = useState([]);
@@ -46,6 +49,7 @@ const Posts = () => {
     postsData?.forEach((el) => {
       const usersname = users?.find((i) => i.id == el.userId);
       const saveds = savedPosts?.find((item) => item.uid == el.id);
+      const selected = selectedPostsData?.find((l) => l == el.id);
       arr.push({
         id: el.id,
         name: usersname?.name,
@@ -53,10 +57,11 @@ const Posts = () => {
         userId: el.userId,
         isSaved: saveds?.uid,
         isSavedId: saveds?.id,
+        isChecked: selected,
       });
     });
     setFiltredUser(arr);
-  }, [loading, users, savedPosts, isSavedAction]);
+  }, [postsData, users, savedPosts, isSavedAction, selectedItems]);
   const search = filtredUser.filter(
     (data) =>
       data.id?.toString().toLowerCase().includes(searchedvalue.toLowerCase()) ||
@@ -88,13 +93,30 @@ const Posts = () => {
   useEffect(() => {
     localStorage.setItem("currentPage", currentPage.toString());
   }, [currentPage]);
-  console.log(postCommentData);
+  console.log(selectedPostsData);
   return (
     <div className="posts_main">
+      <div className="selected_main">
+        {selectedPostsData.length > 0 ? (
+          <div>
+            <button class={"delete_btn"}>
+              <DeleteNotification deleteSelecteds={selectedPostsData} />
+            </button>
+            <button>
+              <SavedNotification savedSelects={selectedPostsData} />
+            </button>
+          </div>
+        ) : null}
+      </div>
       <div className="cards">
         {paginatedData?.map((post) => (
           <>
-            <div className="card" key={post.id}>
+            <div
+              className={`${
+                post.id === post.isChecked ? "avtiveSelect" : null
+              } card`}
+              key={post.id}
+            >
               <div className="card__texts">
                 <div className="card_text">
                   <span>{post.id}</span>
@@ -102,7 +124,20 @@ const Posts = () => {
                 </div>
                 <div className="card_select">
                   <h3>Select</h3>
-                  <input type="checkbox" name="" id="" />
+                  <input
+                    value={post.id}
+                    type="checkbox"
+                    onChange={(event) =>
+                      dispatch(
+                        selectedPosts({
+                          id: post.id,
+                          name: post.name,
+                          checked: event.target.checked,
+                          body: post.body,
+                        })
+                      )
+                    }
+                  />
                 </div>
               </div>
               <p>{post.body}</p>

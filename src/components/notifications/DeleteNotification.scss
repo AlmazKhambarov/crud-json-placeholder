@@ -2,9 +2,12 @@
     display: flex;
     .confirmBtn{
         background-color: blueviolet;
+        position: absolute;
     }
     .cancelBtn{
         background-color: red;
+        left: 120px;
+        position: absolute;
     }
     button{
         margin:0px 5px;

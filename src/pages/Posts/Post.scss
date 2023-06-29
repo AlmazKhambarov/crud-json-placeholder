@@ -5,6 +5,29 @@
   &::-webkit-scrollbar {
     display: none;
   }
+  .selected_main {
+    display: flex;
+    justify-content: end;
+    align-items: center;
+    div {
+      padding: 0 10px;
+      display: flex;
+      button {
+        display: flex;
+        align-items: center;
+        gap: 5px;
+        padding: 3px 10px;
+        border: none;
+        color: #fff;
+        border-radius: 8px;
+        cursor: pointer;
+        font-size: 15px;
+      }
+      .delete_btn {
+        background-color: rgb(232, 29, 29);
+      }
+    }
+  }
   .pagination {
     display: flex;
     width: 100%;
@@ -26,20 +49,30 @@
   display: grid;
   grid-template-columns: 1fr 1fr 1fr;
   padding: 10px;
-.card__texts{
-	display: flex;
-	justify-content: space-between;
-	.card_text{
-		display: block;
-	}
-	.card_select{
-		display: flex;
-    align-items: center;
-    input{
-      margin:0 10px;
+
+  .avtiveSelect {
+    background-color: red;
+    color: white;
+  }
+  .card__texts {
+    display: flex;
+    justify-content: space-between;
+    .card_text {
+      display: block;
     }
-	}
-}
+    .card_select {
+      display: flex;
+      align-items: center;
+      input:checked + h3 {
+        text-decoration: line-through;
+        border: 2px solid red;
+      }
+
+      input {
+        margin: 0 10px;
+      }
+    }
+  }
   .card {
     margin: 10px;
     border: 1px solid;

@@ -6,25 +6,40 @@ import { useDispatch, useSelector } from "react-redux";
 import { savePost } from "../../reduxToolkit/PostsSlice/postsSlice";
 import { deleteSavedPost, savedDatas } from "../../reduxToolkit/extraReducer";
 
-const SavedNotification = ({ savedData }) => {
+const SavedNotification = ({ savedData, savedSelects }) => {
   const dispatch = useDispatch();
   const { savedPosts, isSavedAction } = useSelector((state) => state.posts);
   const handleConfirm = () => {
-    if (savedData.isSaved !== undefined) {
-      dispatch(deleteSavedPost(savedData?.isSavedId));
-      toast.dismiss();
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+    if (savedData) {
+      if (savedData.isSaved !== undefined) {
+        dispatch(deleteSavedPost(savedData?.isSavedId));
+        toast.dismiss();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      } else {
+        var data = { ...savedData, uid: savedData.id };
+        console.log(data);
+        dispatch(savedDatas(data));
+        toast.dismiss();
+        toast.success("SuccsessFully saved");
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      }
     } else {
-      console.log(savedData);
-      var data = { ...savedData, uid: savedData.id };
-      dispatch(savedDatas(data));
-      toast.dismiss();
-      toast.success("SuccsessFully saved");
-      setTimeout(() => {
-        window.location.reload();
-      }, 1000);
+      var res = savedSelects.forEach((data) => {
+        const obj = {
+          id: data.id,
+          body: data.body,
+          uid: data.id,
+        };
+        dispatch(savedDatas(obj));
+        toast.dismiss();
+        setTimeout(() => {
+          window.location.reload();
+        }, 1000);
+      });
     }
   };
   const handleCancel = () => {

@@ -11,7 +11,8 @@ const initialState = {
     savedPosts: [],
     isSavedAction: '',
     padinationQuery: null,
-    searchedvalue: ""
+    searchedvalue: "",
+    selectedPostsData: []
 }
 
 const postsSlice = createSlice({
@@ -27,6 +28,15 @@ const postsSlice = createSlice({
         },
         paginations: (state, action) => {
             state.padinationQuery = 'succsess'
+        },
+        selectedPosts: (state, action) => {
+            const { id, name,checked, body} = action.payload
+            console.log(name)
+            if (checked) {
+                state.selectedPostsData.push({id:id, name:name, body:body});
+            } else {
+                state.selectedPostsData = state.selectedPostsData.filter((item) => item.id !== id)
+            }
         },
         updatePosts: (state, action) => {
             const { id, body, name } = (action.payload)
@@ -109,5 +119,5 @@ const postsSlice = createSlice({
             })
     }
 })
-export const { paginationReducer, deletePostReducer, paginations, updatePosts, searchvalue, savePost } = postsSlice.actions
+export const { paginationReducer, deletePostReducer, paginations, updatePosts, searchvalue, selectedPosts } = postsSlice.actions
 export default postsSlice.reducer

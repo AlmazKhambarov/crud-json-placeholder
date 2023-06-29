@@ -6,16 +6,22 @@ import { deletePostReducer } from "../../reduxToolkit/PostsSlice/postsSlice";
 import { useDispatch } from "react-redux";
 import "./DeleteNotification.scss";
 
-const DeleteNotification = ({ deleteId }) => {
+const DeleteNotification = ({ deleteId, deleteSelecteds }) => {
   const dispatch = useDispatch();
   const handleConfirm = () => {
-	toast.dismiss();  
-    dispatch(deletePostReducer(deleteId));
-    toast.success('SuccsessFully Deleted');
+    toast.dismiss();
+    if (deleteId) {
+      dispatch(deletePostReducer(deleteId));
+    } else {
+      var item = deleteSelecteds.forEach((id) => {
+        dispatch(deletePostReducer(id.id));
+      });
+    }
+    toast.success("SuccsessFully Deleted");
   };
 
   const handleCancel = () => {
-	toast.dismiss();  
+    toast.dismiss();
     toast.error("Cancelled!");
   };
   const openConfirmDialog = () => {
@@ -23,8 +29,12 @@ const DeleteNotification = ({ deleteId }) => {
       <>
         <p>Are you sure you want to proceed?</p>
         <div className="confirmButtons">
-          <button onClick={handleConfirm} className="confirmBtn">Confirm</button>
-          <button onClick={handleCancel} className="cancelBtn">Cancel</button>
+          <button onClick={handleConfirm} className="confirmBtn">
+            Confirm
+          </button>
+          <button onClick={handleCancel} className="cancelBtn">
+            Cancel
+          </button>
         </div>
       </>,
       {
@@ -40,9 +50,7 @@ const DeleteNotification = ({ deleteId }) => {
   };
   return (
     <div className="notification">
-      <span onClick={openConfirmDialog}>
-        Delete
-      </span>
+      <span onClick={openConfirmDialog}>Delete</span>
       <ToastContainer />
     </div>
   );

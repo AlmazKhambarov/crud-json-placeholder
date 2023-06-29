@@ -1,6 +1,6 @@
 import { createAsyncThunk, isAsyncThunkAction } from "@reduxjs/toolkit";
 import axios, { AxiosError } from "axios";
-import { GET_ALL_POSTS, GET_ALL_USERS, GET_ALL_COMMENTS , POST_SAVED_DATA} from "../services/api";
+import { GET_ALL_POSTS, GET_ALL_USERS, GET_ALL_COMMENTS, POST_SAVED_DATA, GET_ALL_TODOS } from "../services/api";
 
 export const get_all_postss = createAsyncThunk('get/allposts', async () => {
     return axios({
@@ -21,21 +21,28 @@ export const getPostsComment = createAsyncThunk('get/allPost/comments', async (p
         url: `${GET_ALL_COMMENTS}/${postId}/comments`,
     }).then(res => res.data)
 })
-export const savedDatas = createAsyncThunk('saved', async(paylaod)=>{
+export const savedDatas = createAsyncThunk('saved', async (paylaod) => {
     return axios({
-        method:'POST',
-        url:POST_SAVED_DATA,
-        data:paylaod
-    }).then(res=>res.data)
+        method: 'POST',
+        url: POST_SAVED_DATA,
+        data: paylaod
+    }).then(res => res.data)
 })
-export const Get_saved_data = createAsyncThunk('get/savedData', async(paylaod)=>{
+export const Get_saved_data = createAsyncThunk('get/savedData', async (paylaod) => {
     return axios({
-        method:'GET',
-        url:POST_SAVED_DATA,
-    }).then(res=>res.data)
+        method: 'GET',
+        url: POST_SAVED_DATA,
+    }).then(res => res.data)
 })
-export const deleteSavedPost = createAsyncThunk('delete/saved/post', async(paylaod)=>{
-    return await axios.delete(`${POST_SAVED_DATA}/${paylaod}`).then(res=>res.data)
+export const deleteSavedPost = createAsyncThunk('delete/saved/post', async (paylaod) => {
+    return await axios.delete(`${POST_SAVED_DATA}/${paylaod}`).then(res => res.data)
+})
+
+export const Get_all_todos = createAsyncThunk('get/todos', async () => {
+    return axios({
+        method: "GET",
+        url: GET_ALL_TODOS
+    }).then(res => res.data)
 })
 
 // const getDataFromLocalStorage = () => {
