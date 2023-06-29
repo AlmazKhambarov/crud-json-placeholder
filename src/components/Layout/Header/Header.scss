@@ -57,3 +57,46 @@ header {
     }
   }
 }
+
+@media (max-width: 850px) {
+	header {
+		.header__left {
+			padding: 5px 10px;
+			font-weight: 400;
+		}
+		.header__right {
+			gap: 10px;
+			input {
+				width: 150px;
+			}
+			select {
+				width: 100px;
+			}
+		}
+	}
+}
+
+@media (max-width: 630px) {
+	header {
+		flex-wrap: wrap;
+		.header__left {
+			width: 90%;
+			padding: 10px 20px;
+			font-size: 18px;
+			display: flex;
+			justify-content: center;
+		}
+
+		.header__right {
+			margin-top: 15px;
+			display: block;
+			input {
+				width: 90%;
+			}
+			select {
+				width: 90%;
+				margin-top: 15px;
+			}
+		}
+	}
+}

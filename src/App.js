@@ -6,8 +6,10 @@ import Header from "./components/Layout/Header/Header";
 function App() {
 	return (
 		<div className="app">
-			<Layout />
-			<div className="app__inside">
+			<div className="app__left">
+				<Layout />
+			</div>
+			<div className="app__right">
 				<Header />
 				<Routers />
 			</div>
