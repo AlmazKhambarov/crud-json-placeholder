@@ -1,49 +1,49 @@
 .posts_main {
-  overflow-y: scroll;
-  overflow-x: hidden;
-  height: 100vh;
-  &::-webkit-scrollbar {
-    display: none;
-  }
-  .selected_main {
-    display: flex;
-    justify-content: end;
-    align-items: center;
-    div {
-      padding: 0 10px;
-      display: flex;
-      button {
-        display: flex;
-        align-items: center;
-        gap: 5px;
-        padding: 3px 10px;
-        border: none;
-        color: #fff;
-        border-radius: 8px;
-        cursor: pointer;
-        font-size: 15px;
-      }
-      .delete_btn {
-        background-color: rgb(232, 29, 29);
-      }
-    }
-  }
-  .pagination {
-    display: flex;
-    width: 100%;
-    justify-content: end;
-    padding: 15px;
-    .pagination_button {
-      border-style: none;
-      padding: 20px;
-      font-size: 20px;
-      border-radius: 2px;
-      margin: 2px;
-    }
-    .activeBtn {
-      color: red;
-    }
-  }
+	overflow-y: scroll;
+	overflow-x: hidden;
+	height: 100vh;
+	&::-webkit-scrollbar {
+		display: none;
+	}
+	.selected_main {
+		display: flex;
+		justify-content: end;
+		align-items: center;
+		div {
+			padding: 0 10px;
+			display: flex;
+			button {
+				display: flex;
+				align-items: center;
+				gap: 5px;
+				padding: 3px 10px;
+				border: none;
+				color: #fff;
+				border-radius: 8px;
+				cursor: pointer;
+				font-size: 15px;
+			}
+			.delete_btn {
+				background-color: rgb(232, 29, 29);
+			}
+		}
+	}
+	.pagination {
+		display: flex;
+		width: 100%;
+		justify-content: end;
+		padding: 15px;
+		.pagination_button {
+			border-style: none;
+			padding: 20px;
+			font-size: 20px;
+			border-radius: 2px;
+			margin: 2px;
+		}
+		.activeBtn {
+			color: red;
+		}
+	}
 }
 .cards {
 	display: grid;
